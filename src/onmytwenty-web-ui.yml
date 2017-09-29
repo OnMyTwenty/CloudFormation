@@ -17,6 +17,27 @@ Resources:
         IndexDocument: index.html
         ErrorDocument: index.html
 
+  WebsiteS3BucketPolicy: 
+    Type: "AWS::S3::BucketPolicy"
+    Properties: 
+      Bucket: 
+        Ref: WebsiteS3Bucket
+      PolicyDocument: 
+        Statement: 
+          - 
+            Action: 
+              - "s3:GetObject"
+            Effect: "Allow"
+            Principal: "*"
+            Resource:
+              Fn::Join: 
+                - ""
+                - 
+                  - "arn:aws:s3:::"
+                  - 
+                    Ref: WebsiteS3Bucket
+                  - "/*"
+
 Outputs:
   
   WebsiteURL:
