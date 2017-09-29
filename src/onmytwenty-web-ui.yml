@@ -1,0 +1,28 @@
+Description: >
+    Stack for "onmytwenty-web-ui" application.
+
+Parameters:
+
+  EnvironmentName:
+    Type: String
+
+Resources:
+
+  WebsiteS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: onmytwenty-web-ui
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+Outputs:
+  
+  WebsiteURL:
+    Value: !GetAtt [WebsiteS3Bucket, WebsiteURL]
+    Description: URL for website hosted on S3
+  
+  SecureWebsiteURL:
+    Value: !Join ['', ['https://', !GetAtt [WebsiteS3Bucket, DomainName]]]
+    Description: Secure URL for website hosted on S3
